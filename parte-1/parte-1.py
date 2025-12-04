@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import os
-from constraint import Problem, AllDifferentConstraint, ExactSumConstraint, InSetConstraint
+from constraint import Problem, ExactSumConstraint, InSetConstraint
 from parser import parse_input
 from board import Board
 

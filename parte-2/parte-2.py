@@ -1,33 +1,11 @@
+#!/usr/bin/env python3
+
 from grafo import Nodo, Graph
-from algoritmo import dijks
+from algoritmo import dijks, a_star
 import sys
 import time
 from format_time import format_time
-
-def parse_coords(file_path):
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
-
-    v = []
-    
-    for line in lines:
-        if line.startswith('v'):
-            v.append(int(line.split()[1]))
-
-    return v
-
-def parse_arcs(file_path):
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
-
-    a = []
-    
-    for line in lines:
-        if line.startswith('a'):
-            parts = line.split()
-            a.append((int(parts[1]), int(parts[2]), int(parts[3])))
-
-    return a
+from parser import parse_coords, parse_arcs
 
 
 def main():
@@ -52,7 +30,7 @@ def main():
     grafo = Graph(vertices, arcs)
 
     inicio = time.time()
-    cost, end = dijks(grafo, start_id, end_id)
+    cost, end = a_star(grafo, start_id, end_id)
     fin = time.time()
     
     time_elapsed = fin - inicio
@@ -71,7 +49,7 @@ def main():
     with open(output, 'w') as f:
         path = [end]
         node = end
-        for i in range(grafo.exp - 1):
+        for i in range(grafo.exp+1):
             if node.father is None:
                 break
             path.append(node.father)
@@ -87,6 +65,7 @@ def main():
                 out += f"- ({path[i].cost}) - {path[i].id} "
 
         f.write(out)
+
 
 if __name__ == "__main__":
     main()
