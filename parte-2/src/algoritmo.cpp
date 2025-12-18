@@ -6,6 +6,7 @@
 
 #include <tuple>
 #include <vector>
+#include <iostream>
 
 std::tuple<int, nodo::Nodo*>algoritmo::dijks(grafo::Grafo& g, int start_id, int end_id) {
     nodo::Nodo* n = g.gen_node(start_id, end_id);
@@ -14,7 +15,7 @@ std::tuple<int, nodo::Nodo*>algoritmo::dijks(grafo::Grafo& g, int start_id, int 
     cerrada::Closed closed = cerrada::Closed();
     
 
-    while (!open.nodes.empty()) {
+    while (open.min != open.max_dist + 2) {
         n = open.pop();
         if (n->id == end_id) {
             return {n->g, n};
@@ -36,8 +37,7 @@ std::tuple<int, nodo::Nodo*> algoritmo::a_star(grafo::Grafo& g, int start_id, in
     
     abierta::Open open(*n);
     cerrada::Closed closed;
-    
-    while (!open.nodes.empty()) {
+    while (open.min != open.max_dist + 2) {
         n = open.pop();
         if (n->id == end_id) {
             return {n->g, n};

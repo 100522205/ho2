@@ -9,6 +9,7 @@
 #include <string>
 #include <functional>
 #include <cmath>
+#include <iostream>
 
 namespace grafo {
     struct TupleHash {

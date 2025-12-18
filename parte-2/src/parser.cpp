@@ -32,7 +32,6 @@ std::vector<std::tuple<int, int, int>> parser::parse_coords(const std::string& f
     std::vector<std::string> lines = leer_archivo(filepath);
     
     std::vector<std::tuple<int, int, int>> v;
-
     for (const auto& line : lines) {
         if (line.starts_with("v")) {
             std::istringstream stream(line);

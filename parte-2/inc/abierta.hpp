@@ -8,6 +8,7 @@ namespace abierta {
     class Open {
     public:
     int max_dist = 1000000;
+    int min = 1000000;
     std::vector<std::vector<nodo::Nodo*>> nodes;
 
     Open(nodo::Nodo& start) {
@@ -36,7 +37,7 @@ namespace abierta {
                 return;
             }
         }
-        min = max_dist + 1;
+        min = max_dist + 2;
     }
 
     nodo::Nodo* pop() {
@@ -47,10 +48,6 @@ namespace abierta {
         }
         return nodo;
     }
-    
-    private:
-    int min = 1000000;
-
     
     };
 } // namespace abierta
