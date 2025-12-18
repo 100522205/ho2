@@ -7,8 +7,8 @@
 namespace abierta {
     class Open {
     public:
-    int max_dist = 1000000;
-    int min = 1000000;
+    int max_dist = 44000000;
+    int min = 44000000;
     std::vector<std::vector<nodo::Nodo*>> nodes;
 
     Open(nodo::Nodo& start) {
