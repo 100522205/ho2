@@ -43,6 +43,11 @@ int main(int argc, char* argv[]) {
     auto inicio = std::chrono::high_resolution_clock::now();
     auto [total_cost, end_node] = algoritmo::a_star(g, start_id, end_id);
     auto fin = std::chrono::high_resolution_clock::now();
+
+    if (end_node == nullptr) {
+        std::cout << "No se ha encontrado solucion entre " << start_id << " y " << end_id << "\n";
+        return 0;
+    }
     
     std::chrono::duration<double> duration = fin - inicio;
     double seconds = duration.count();

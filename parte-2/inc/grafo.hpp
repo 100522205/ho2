@@ -72,7 +72,7 @@ namespace grafo {
         void get_adj() {
             adj.clear();
             for (const auto& ij : a){
-                if (adj[std::get<0>(ij)].capacity() < 7) {adj[std::get<0>(ij)].reserve(7);}
+                if (adj[std::get<0>(ij)].capacity() < 9) {adj[std::get<0>(ij)].reserve(9);}
                 adj[std::get<0>(ij)].push_back(std::get<1>(ij));
 
             }

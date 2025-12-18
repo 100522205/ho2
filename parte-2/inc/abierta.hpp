@@ -8,6 +8,7 @@ namespace abierta {
     class Open {
     public:
     int max_dist = 1000000;
+    std::vector<std::vector<nodo::Nodo*>> nodes;
 
     Open(nodo::Nodo& start) {
         nodes.resize(max_dist + 1);
@@ -49,7 +50,6 @@ namespace abierta {
     
     private:
     int min = 1000000;
-    std::vector<std::vector<nodo::Nodo*>> nodes;
 
     
     };
