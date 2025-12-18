@@ -2,11 +2,13 @@
 #define GRAFO_HPP
 
 #include "nodo.hpp"
+
 #include <vector>
 #include <tuple>
 #include <unordered_map>
 #include <string>
 #include <functional>
+#include <cmath>
 
 namespace grafo {
     struct TupleHash {
@@ -41,7 +43,7 @@ namespace grafo {
             }
             return new nodo::Nodo(id, father,
                 (father == nullptr) ? 0 : cost[{father->id, id}],
-                children, manhattan(id, end));
+                children, haversine(id, end));
         }
 
         std::vector<nodo::Nodo*> expand_node(nodo::Nodo* node, int end) {
@@ -76,12 +78,23 @@ namespace grafo {
             }
         }
     
-        int manhattan(int id, int end) {
+        double haversine(int id, int end) {
+            int R = 6371; // Radio de la Tierra en km
             int lat1 = std::get<1>(v[id]);
             int lon1 = std::get<2>(v[id]);
             int lat2 = std::get<1>(v[end]);
             int lon2 = std::get<2>(v[end]);
-            return abs(lat1 - lat2) + abs(lon1 - lon2);            
+
+            int delta_lat = lat2 - lat1;
+            int delta_lon = lon2 - lon1;
+
+            double a = sin(delta_lat / 2) * sin(delta_lat / 2) +
+                      cos(lat1) * cos(lat2) *
+                      sin(delta_lon / 2) * sin(delta_lon / 2);
+
+            double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+            return R * c;            
         }
 
 

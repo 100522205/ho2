@@ -8,12 +8,12 @@ namespace nodo {
         public:
         int id;
         int g ;
-        int f;
+        double f;
         Nodo* father;
         int cost;
 
         Nodo(int id, Nodo* father, int cost, 
-            std::vector<int> children, int h): 
+            std::vector<int> children, double h): 
             id(id), father(father), cost(cost), c(children), h(h) {
                 g = get_acc_cost();
                 f = g + h;
@@ -25,7 +25,7 @@ namespace nodo {
 
         private:
         std::vector<int> c;
-        int h;
+        double h;
 
         int get_acc_cost() {
             if (father == nullptr) {
