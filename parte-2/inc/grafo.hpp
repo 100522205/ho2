@@ -80,20 +80,29 @@ namespace grafo {
         }
     
         double haversine(int id, int end) {
-            int R = 6371; // Radio de la Tierra en km
-            int lat1 = std::get<1>(v[id]);
-            int lon1 = std::get<2>(v[id]);
-            int lat2 = std::get<1>(v[end]);
-            int lon2 = std::get<2>(v[end]);
+            double R = 6371000.0; // Radio en metros 
+            
+            const double to_rad = std::numbers::pi / 180.0;
 
-            int delta_lat = lat2 - lat1;
-            int delta_lon = lon2 - lon1;
+            double lon1_deg = std::get<1>(v[id]) / 1000000.0; 
+            double lat1_deg = std::get<2>(v[id]) / 1000000.0;
+            
+            double lon2_deg = std::get<1>(v[end]) / 1000000.0;
+            double lat2_deg = std::get<2>(v[end]) / 1000000.0;
 
-            double a = sin(delta_lat / 2) * sin(delta_lat / 2) +
-                      cos(lat1) * cos(lat2) *
-                      sin(delta_lon / 2) * sin(delta_lon / 2);
+            double lat1 = lat1_deg * to_rad;
+            double lon1 = lon1_deg * to_rad;
+            double lat2 = lat2_deg * to_rad;
+            double lon2 = lon2_deg * to_rad;
 
-            double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+            double delta_lat = lat2 - lat1;
+            double delta_lon = lon2 - lon1;
+
+            double a = std::pow(std::sin(delta_lat / 2.0), 2) +
+                    std::cos(lat1) * std::cos(lat2) *
+                    std::pow(std::sin(delta_lon / 2.0), 2);
+
+            double c = 2.0 * std::atan2(std::sqrt(a), std::sqrt(1.0 - a));
 
             return R * c;            
         }
